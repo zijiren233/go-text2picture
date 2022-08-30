@@ -8,7 +8,7 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-func (p *picture) DrowWithColor(fontColor *image.Uniform, text string) *picture {
+func (p *picture) DrawWithColor(fontColor *image.Uniform, text string) *picture {
 	// font color
 	p.c.SetSrc(fontColor)
 
@@ -32,7 +32,7 @@ func (p *picture) DrowWithColor(fontColor *image.Uniform, text string) *picture 
 	return p
 }
 
-func (p *picture) DrowWithBlack(text string) *picture {
+func (p *picture) DrawWithBlack(text string) *picture {
 	// font color
 	p.c.SetSrc(image.Black)
 
@@ -56,7 +56,7 @@ func (p *picture) DrowWithBlack(text string) *picture {
 	return p
 }
 
-func (p *picture) DrowWithWhite(text string) *picture {
+func (p *picture) DrawWithWhite(text string) *picture {
 	// font color
 	p.c.SetSrc(image.White)
 
