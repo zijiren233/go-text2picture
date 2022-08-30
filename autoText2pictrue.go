@@ -1,11 +1,9 @@
 package text2picture
 
 import (
-	"bufio"
 	"bytes"
 	"image"
 	"image/draw"
-	"image/png"
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
@@ -53,7 +51,7 @@ func (p *autoPicture) NextLineDistance() int {
 	return p.c.PointToFixed(p.fontSize).Round()
 }
 
-func (p *autoPicture) DrawWithWhite(text string) *autoPicture {
+func (p *autoPicture) Draw(text string) *autoPicture {
 	// font color
 	p.c.SetSrc(Black)
 
@@ -100,13 +98,5 @@ func (p *autoPicture) addnewline() {
 func (p *autoPicture) GeneratePicture() *bytes.Buffer {
 	src := NewColorPicture(p.rgba.Bounds().Max.X, p.rgba.Bounds().Max.Y, image.White)
 	draw.Draw(src, p.rgba.Rect, p.rgba, p.rgba.Rect.Min, draw.Over)
-	b := bytes.NewBuffer(nil)
-	bf := bufio.NewWriter(b)
-	if err := png.Encode(bf, src); err != nil {
-		return nil
-	}
-	if err := bf.Flush(); err != nil {
-		return nil
-	}
-	return b
+	return saveImage(src)
 }
