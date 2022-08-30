@@ -30,4 +30,4 @@ func main() {
 }
 ```
 
-<img src="https://github.com/zijiren233/go-text2picture/blob/example/example.png" />
+<img src="https://github.com/zijiren233/go-text2picture/blob/main/example/example.png" />
