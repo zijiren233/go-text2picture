@@ -29,3 +29,5 @@ func main() {
 	io.Copy(f, bytes.NewReader(pic.GeneratePicture()))
 }
 ```
+
+<img src="https://github.com/zijiren233/go-text2picture/blob/example/example.png" />
