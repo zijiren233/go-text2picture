@@ -14,7 +14,7 @@ func NewColorBackGround(width, height int, color color.Color) *image.RGBA {
 	return rgba
 }
 
-func LoadBackGround(width, height int, filePath string) *image.RGBA {
+func LoadBackGround(filePath string) *image.RGBA {
 	f, err := os.Open(filePath)
 	if err != nil {
 		return nil
