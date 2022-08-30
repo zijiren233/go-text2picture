@@ -4,7 +4,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"image/color"
 	"io"
@@ -25,7 +24,7 @@ func main() {
 		return
 	}
 	defer f.Close()
-	io.Copy(f, bytes.NewReader(pic.GeneratePicture()))
+	io.Copy(f, pic.GeneratePicture())
 }
 ```
 

@@ -105,11 +105,11 @@ func NewPictureWithBackGround(png *image.RGBA, dpi float64, padding int, fontSiz
 	return &p
 }
 
-func (p *picture) GeneratePicture() []byte {
+func (p *picture) GeneratePicture() *bytes.Buffer {
 	return saveImage(p.rgba)
 }
 
-func saveImage(rgba *image.RGBA) []byte {
+func saveImage(rgba *image.RGBA) *bytes.Buffer {
 	b := bytes.NewBuffer(nil)
 	bf := bufio.NewWriter(b)
 	if err := png.Encode(bf, rgba); err != nil {
@@ -118,5 +118,5 @@ func saveImage(rgba *image.RGBA) []byte {
 	if err := bf.Flush(); err != nil {
 		return nil
 	}
-	return b.Bytes()
+	return b
 }
