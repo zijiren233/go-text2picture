@@ -9,9 +9,9 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-func (p *picture) DrawWithColor(_16bit_color uint16, text string) *picture {
+func (p *picture) DrawWithColor(color color.RGBA, text string) *picture {
 	// font color
-	p.c.SetSrc(image.NewUniform(color.Gray16{_16bit_color}))
+	p.c.SetSrc(image.NewUniform(color))
 
 	face := truetype.NewFace(p.font, &truetype.Options{Size: p.fontSize, DPI: p.dpi})
 
