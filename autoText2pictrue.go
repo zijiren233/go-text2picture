@@ -98,10 +98,6 @@ func (p *autoPicture) addnewline() {
 }
 
 func (p *autoPicture) GeneratePicture() *bytes.Buffer {
-	return saveImage(p.rgba)
-}
-
-func (p *autoPicture) SaveImage() *bytes.Buffer {
 	src := NewColorPicture(p.rgba.Bounds().Max.X, p.rgba.Bounds().Max.Y, image.White)
 	draw.Draw(src, p.rgba.Rect, p.rgba, p.rgba.Rect.Min, draw.Over)
 	b := bytes.NewBuffer(nil)

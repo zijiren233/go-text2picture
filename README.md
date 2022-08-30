@@ -13,9 +13,9 @@ import (
 )
 
 func main() {
-	pic := text2picture.NewPictureWithBackGround(text2picture.NewColorBackGround(500, 100, text2picture.White), 320, 10, 5)
+	pic := text2picture.NewPictureWithBackGround(text2picture.NewColorPicture(500, 100, text2picture.White), 320, 10, 5)
 	pic.DrawWithBlack("test 123\n4321...")
-	pic.DrawWithColor(color.RGBA{255, 0, 0, 255}, "test color ... ")
+	pic.DrawWithColor(text2picture.Red, "test color ... ")
 	pic.PointOffset(0, float64(pic.NextLineDistance()))
 	pic.DrawWithBlack("test offset")
 	pic.DrawWithBlack("   test auto newline")
