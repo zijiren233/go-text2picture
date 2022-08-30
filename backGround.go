@@ -6,15 +6,31 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"os"
 )
 
-func NewColorBackGround(width, height int, color color.Color) *image.RGBA {
+func NewColorPicture(width, height int, color color.Color) *image.RGBA {
 	rgba := image.NewRGBA(image.Rect(0, 0, width, height))
-	draw.Draw(rgba, rgba.Bounds(), image.NewUniform(color), image.Point{}, draw.Src)
+	draw.Draw(rgba, rgba.Rect, image.NewUniform(color), image.Point{}, draw.Src)
 	return rgba
 }
 
-func LoadBackGround(file io.Reader) *image.RGBA {
+func LoadPicture(filepath string) *image.RGBA {
+	f, err := os.Open(filepath)
+	if err != nil {
+		return nil
+	}
+	defer f.Close()
+	bac, err := png.Decode(f)
+	if err != nil {
+		return nil
+	}
+	rgba := image.NewRGBA(image.Rect(0, 0, bac.Bounds().Max.X, bac.Bounds().Max.Y))
+	draw.Src.Draw(rgba, rgba.Rect, bac, bac.Bounds().Min)
+	return rgba
+}
+
+func ReadPicture(file io.Reader) *image.RGBA {
 	bac, err := png.Decode(file)
 	if err != nil {
 		return nil

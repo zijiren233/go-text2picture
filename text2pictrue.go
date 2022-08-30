@@ -25,9 +25,6 @@ type picture struct {
 	// text left and right padding
 	padding int
 
-	// line spacing
-	spacing float64
-
 	rgba *image.RGBA
 
 	pt fixed.Point26_6
@@ -46,10 +43,6 @@ func (p *picture) SetPoint(x, y float64) {
 func (p *picture) PointOffset(x, y float64) {
 	p.pt.X += fixed.Int26_6(x) << 6
 	p.pt.Y += fixed.Int26_6(y) << 6
-}
-
-func (p *picture) SetSpacing(spacing float64) {
-	p.spacing = spacing
 }
 
 func (p *picture) SetFontSize(fontSize float64) {
@@ -73,7 +66,7 @@ func (p *picture) GetRGBA() *image.RGBA {
 }
 
 func NewPictureWithBackGround(png *image.RGBA, dpi float64, padding int, fontSize float64) *picture {
-	p := picture{dpi: dpi, padding: padding, fontSize: fontSize, spacing: 1, font: defaultFont}
+	p := picture{dpi: dpi, padding: padding, fontSize: fontSize, font: defaultFont}
 	p.rgba = png
 	p.c = freetype.NewContext()
 	p.c.SetDPI(p.dpi)
