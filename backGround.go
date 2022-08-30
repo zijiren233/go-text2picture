@@ -4,22 +4,24 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"image/png"
+	"os"
 )
 
-func NewBackGroundWithColor(width, height int, color color.RGBA) *image.RGBA {
+func NewColorBackGround(width, height int, color color.Color) *image.RGBA {
 	rgba := image.NewRGBA(image.Rect(0, 0, width, height))
 	draw.Draw(rgba, rgba.Bounds(), image.NewUniform(color), image.Point{}, draw.Src)
 	return rgba
 }
 
-func NewWhiteBackGround(width, height int) *image.RGBA {
-	rgba := image.NewRGBA(image.Rect(0, 0, width, height))
-	draw.Draw(rgba, rgba.Bounds(), image.White, image.Point{}, draw.Src)
-	return rgba
-}
-
-func NewBlackBackGround(width, height int) *image.RGBA {
-	rgba := image.NewRGBA(image.Rect(0, 0, width, height))
-	draw.Draw(rgba, rgba.Bounds(), image.Black, image.Point{}, draw.Src)
-	return rgba
+func LoadBackGround(width, height int, filePath string) *image.RGBA {
+	f, err := os.Open(filePath)
+	if err != nil {
+		return nil
+	}
+	bac, err := png.Decode(f)
+	if err != nil {
+		return nil
+	}
+	return bac.(*image.RGBA)
 }

@@ -13,10 +13,11 @@ import (
 )
 
 func main() {
-	pic := text2picture.NewPictureWithBackGround(text2picture.NewWhiteBackGround(500, 100), 320, 10, 5)
+	pic := text2picture.NewPictureWithBackGround(text2picture.NewColorBackGround(500, 100, text2picture.White), 320, 10, 5)
 	pic.DrawWithBlack("test 123\n4321...")
 	pic.DrawWithColor(color.RGBA{255, 0, 0, 255}, "test color ... ")
-	pic.PointOffset(0, 5)
+	fmt.Printf("pic.NextLineDistance(): %v\n", pic.NextLineDistance())
+	pic.PointOffset(0, float64(pic.NextLineDistance()))
 	pic.DrawWithBlack("test offset")
 	pic.DrawWithBlack("   test auto newline")
 	f, err := os.OpenFile("./test.png", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.ModePerm)

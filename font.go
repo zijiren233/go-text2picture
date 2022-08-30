@@ -11,10 +11,10 @@ import (
 //go:embed font.ttf
 var fontFile []byte
 
-var DefaultFont, _ = ReadFont(bytes.NewReader(fontFile))
+var defaultFont, _ = ReadFont(bytes.NewReader(fontFile))
 
 func SetDefaultFont(font *truetype.Font) {
-	DefaultFont = font
+	defaultFont = font
 }
 
 func ReadFont(fontfile io.Reader) (*truetype.Font, error) {
