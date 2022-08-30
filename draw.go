@@ -2,15 +2,16 @@ package text2picture
 
 import (
 	"image"
+	"image/color"
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/math/fixed"
 )
 
-func (p *picture) DrawWithColor(fontColor *image.Uniform, text string) *picture {
+func (p *picture) DrawWithColor(_16bit_color uint16, text string) *picture {
 	// font color
-	p.c.SetSrc(fontColor)
+	p.c.SetSrc(image.NewUniform(color.Gray16{_16bit_color}))
 
 	face := truetype.NewFace(p.font, &truetype.Options{Size: p.fontSize, DPI: p.dpi})
 

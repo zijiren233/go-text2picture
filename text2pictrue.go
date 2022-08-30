@@ -37,14 +37,14 @@ func (p *picture) GetPoint() (fixed.Int26_6, fixed.Int26_6) {
 	return p.pt.X, p.pt.Y
 }
 
-func (p *picture) SetPoint(x, y fixed.Int26_6) {
-	p.pt.X = x
-	p.pt.Y = y
+func (p *picture) SetPoint(x, y float64) {
+	p.pt.X = p.c.PointToFixed(x)
+	p.pt.Y = p.c.PointToFixed(y)
 }
 
-func (p *picture) PointOffset(x, y fixed.Int26_6) {
-	p.pt.X += x
-	p.pt.Y += y
+func (p *picture) PointOffset(x, y float64) {
+	p.pt.X += p.c.PointToFixed(x)
+	p.pt.Y += p.c.PointToFixed(y)
 }
 
 func (p *picture) SetSpacing(spacing float64) {
