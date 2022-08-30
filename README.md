@@ -17,7 +17,8 @@ func main() {
 	pic.DrawWithBlack("test 123\n4321...")
 	pic.DrawWithColor(color.RGBA{255, 0, 0, 255}, "test color ... ")
 	pic.PointOffset(0, 5)
-	pic.DrawWithBlack("test offset\n")
+	pic.DrawWithBlack("test offset")
+	pic.DrawWithBlack("   test auto newline")
 	f, err := os.OpenFile("./test.png", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.ModePerm)
 	if err != nil {
 		fmt.Println(err)
