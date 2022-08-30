@@ -5,7 +5,7 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
-	"os"
+	"io"
 )
 
 func NewColorBackGround(width, height int, color color.Color) *image.RGBA {
@@ -14,14 +14,12 @@ func NewColorBackGround(width, height int, color color.Color) *image.RGBA {
 	return rgba
 }
 
-func LoadBackGround(filePath string) *image.RGBA {
-	f, err := os.Open(filePath)
+func LoadBackGround(file io.Reader) *image.RGBA {
+	bac, err := png.Decode(file)
 	if err != nil {
 		return nil
 	}
-	bac, err := png.Decode(f)
-	if err != nil {
-		return nil
-	}
-	return bac.(*image.RGBA)
+	rgba := image.NewRGBA(image.Rect(0, 0, bac.Bounds().Max.X, bac.Bounds().Max.Y))
+	draw.Src.Draw(rgba, rgba.Rect, bac, bac.Bounds().Min)
+	return rgba
 }
