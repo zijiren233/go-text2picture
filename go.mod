@@ -1,4 +1,4 @@
-module github/zijiren233/go-text2picture
+module github.com/zijiren233/go-text2picture
 
 go 1.19
 
