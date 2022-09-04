@@ -54,8 +54,8 @@ func (p *picture) handleText(text *string) {
 }
 
 func (p *picture) newline() {
-	p.pt.X = fixed.Int26_6(p.padding+p.line_spacing) << 6
-	p.pt.Y += p.c.PointToFixed(p.fontSize)
+	p.pt.X = fixed.Int26_6(p.padding) << 6
+	p.pt.Y += p.c.PointToFixed(p.fontSize + float64(p.line_spacing))
 }
 
 func (p *picture) NextLineDistance() int {
