@@ -18,7 +18,8 @@ type picture struct {
 	font *truetype.Font
 
 	// font size in points
-	fontSize float64
+	fontSize     float64
+	line_spacing int
 
 	face font.Face
 
@@ -40,6 +41,12 @@ func (p *picture) GetPoint() (fixed.Int26_6, fixed.Int26_6) {
 func (p *picture) SetPoint(x, y float64) *picture {
 	p.pt.X = fixed.Int26_6(x) << 6
 	p.pt.Y = fixed.Int26_6(y) << 6
+	return p
+}
+
+// Set line spacing (line height)
+func (p *picture) SetLineSpacing(line_spacing int) *picture {
+	p.line_spacing = line_spacing
 	return p
 }
 
