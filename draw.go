@@ -7,6 +7,7 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
+// Color can be generated using text2picture.NewColor()
 func (p *picture) DrawWithColor(color color.Color, text string) *picture {
 	// font color
 	p.c.SetSrc(image.NewUniform(color))

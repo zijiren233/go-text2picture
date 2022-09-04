@@ -4,6 +4,7 @@ import (
 	"bytes"
 	_ "embed"
 	"io"
+	"os"
 
 	"github.com/golang/freetype/truetype"
 )
@@ -15,6 +16,25 @@ var defaultFont, _ = ReadFont(bytes.NewReader(fontFile))
 
 func SetDefaultFont(font *truetype.Font) {
 	defaultFont = font
+}
+
+// Load local fonts
+func LoadFont(fontPath string) (*truetype.Font, error) {
+	fontfile, err := os.Open(fontPath)
+	if err != nil {
+		return nil, err
+	}
+	defer fontfile.Close()
+	b, err := io.ReadAll(fontfile)
+	if err != nil {
+		return nil, err
+	}
+	f, err := truetype.Parse(b)
+	if err != nil {
+		return nil, err
+	}
+
+	return f, nil
 }
 
 func ReadFont(fontfile io.Reader) (*truetype.Font, error) {

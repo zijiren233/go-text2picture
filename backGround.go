@@ -9,6 +9,7 @@ import (
 	"os"
 )
 
+// Color can be generated using text2picture.NewColor()
 func NewColorPicture(width, height int, color color.Color) *image.RGBA {
 	rgba := image.NewRGBA(image.Rect(0, 0, width, height))
 	draw.Draw(rgba, rgba.Rect, image.NewUniform(color), image.Point{}, draw.Src)

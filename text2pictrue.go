@@ -31,40 +31,55 @@ type picture struct {
 	c  *freetype.Context
 }
 
+// Get cursor position coordinates
 func (p *picture) GetPoint() (fixed.Int26_6, fixed.Int26_6) {
 	return p.pt.X, p.pt.Y
 }
 
-func (p *picture) SetPoint(x, y float64) {
+// Set cursor position coordinates
+func (p *picture) SetPoint(x, y float64) *picture {
 	p.pt.X = fixed.Int26_6(x) << 6
 	p.pt.Y = fixed.Int26_6(y) << 6
+	return p
 }
 
-func (p *picture) PointOffset(x, y float64) {
+// Set the offset of the cursor coordinates
+func (p *picture) PointOffset(x, y float64) *picture {
 	p.pt.X += fixed.Int26_6(x) << 6
 	p.pt.Y += fixed.Int26_6(y) << 6
+	return p
 }
 
-func (p *picture) SetFontSize(fontSize float64) {
+// Override to get font size
+func (p *picture) SetFontSize(fontSize float64) *picture {
 	p.c.SetFontSize(fontSize)
 	p.face = truetype.NewFace(p.font, &truetype.Options{Size: fontSize, DPI: p.dpi})
 	p.fontSize = fontSize
+	return p
 }
 
-func (p *picture) SetPadding(padding int) {
+// Override to get padding
+func (p *picture) SetPadding(padding int) *picture {
 	p.padding = padding
+	return p
 }
 
-func (p *picture) SetFont(font *truetype.Font) {
+// set font (.tff)
+func (p *picture) SetFont(font *truetype.Font) *picture {
 	p.c.SetFont(font)
 	p.face = truetype.NewFace(font, &truetype.Options{Size: p.fontSize, DPI: p.dpi})
 	p.font = font
+	return p
 }
 
+// Get curren set font (.tff)
 func (p *picture) GetRGBA() *image.RGBA {
 	return p.rgba
 }
 
+// png: background
+// padding: text left and right padding
+// fontSize: font size in points
 func NewPictureWithBackGround(png *image.RGBA, dpi float64, padding int, fontSize float64) *picture {
 	p := picture{dpi: dpi, padding: padding, fontSize: fontSize, font: defaultFont}
 	p.rgba = png
@@ -82,6 +97,7 @@ func NewPictureWithBackGround(png *image.RGBA, dpi float64, padding int, fontSiz
 	return &p
 }
 
+// generate final result
 func (p *picture) GeneratePicture() *bytes.Buffer {
 	return saveImage(p.rgba)
 }
