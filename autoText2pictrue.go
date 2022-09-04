@@ -18,7 +18,8 @@ type autoPicture struct {
 	font *truetype.Font
 
 	// font size in points
-	fontSize float64
+	fontSize     float64
+	line_spacing int
 
 	face font.Face
 
@@ -47,8 +48,14 @@ func AutoNewPicture(width int, dpi float64, padding int, fontSize float64) *auto
 	return &p
 }
 
+// Set line spacing (line height)
+func (p *autoPicture) SetLineSpacing(line_spacing int) *autoPicture {
+	p.line_spacing = line_spacing
+	return p
+}
+
 func (p *autoPicture) NextLineDistance() int {
-	return p.c.PointToFixed(p.fontSize).Round()
+	return p.c.PointToFixed(p.fontSize + float64(p.line_spacing)).Round()
 }
 
 func (p *autoPicture) Draw(text string) *autoPicture {
@@ -83,11 +90,11 @@ func (p *autoPicture) newline() {
 		p.addnewline()
 	}
 	p.pt.X = fixed.Int26_6(p.padding) << 6
-	p.pt.Y += p.c.PointToFixed(p.fontSize)
+	p.pt.Y += p.c.PointToFixed(p.fontSize + float64(p.line_spacing))
 }
 
 func (p *autoPicture) addnewline() {
-	rgba := NewColorPicture(p.width, p.pt.Y.Round()+fixed.Int26_6(p.fontSize*p.dpi*(64.0/72.0)*1.2).Round(), Transparent)
+	rgba := NewColorPicture(p.width, p.pt.Y.Round()+fixed.Int26_6((p.fontSize+float64(p.line_spacing))*p.dpi*(64.0/72.0)*1.2).Round(), Transparent)
 	draw.Draw(rgba, p.rgba.Rect, p.rgba, p.rgba.Rect.Min, draw.Src)
 	p.rgba = rgba
 
