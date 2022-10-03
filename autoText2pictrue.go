@@ -102,7 +102,7 @@ func (p *autoPicture) addnewline() {
 	p.c.SetDst(p.rgba)
 }
 
-func (p *autoPicture) GeneratePicture() *bytes.Buffer {
+func (p *autoPicture) GeneratePicture() (*bytes.Buffer, error) {
 	src := NewColorPicture(p.rgba.Bounds().Max.X, p.rgba.Bounds().Max.Y, image.White)
 	draw.Draw(src, p.rgba.Rect, p.rgba, p.rgba.Rect.Min, draw.Over)
 	return saveImage(src)

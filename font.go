@@ -14,10 +14,6 @@ var fontFile []byte
 
 var defaultFont, _ = ReadFont(bytes.NewReader(fontFile))
 
-func SetDefaultFont(font *truetype.Font) {
-	defaultFont = font
-}
-
 // Load local fonts
 func LoadFont(fontPath string) (*truetype.Font, error) {
 	fontfile, err := os.Open(fontPath)

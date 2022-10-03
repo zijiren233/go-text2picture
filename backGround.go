@@ -16,27 +16,27 @@ func NewColorPicture(width, height int, color color.Color) *image.RGBA {
 	return rgba
 }
 
-func LoadPicture(filepath string) *image.RGBA {
+func LoadPicture(filepath string) (*image.RGBA, error) {
 	f, err := os.Open(filepath)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	defer f.Close()
 	bac, err := png.Decode(f)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	rgba := image.NewRGBA(image.Rect(0, 0, bac.Bounds().Max.X, bac.Bounds().Max.Y))
 	draw.Src.Draw(rgba, rgba.Rect, bac, bac.Bounds().Min)
-	return rgba
+	return rgba, nil
 }
 
-func ReadPicture(file io.Reader) *image.RGBA {
+func ReadPicture(file io.Reader) (*image.RGBA, error) {
 	bac, err := png.Decode(file)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	rgba := image.NewRGBA(image.Rect(0, 0, bac.Bounds().Max.X, bac.Bounds().Max.Y))
 	draw.Src.Draw(rgba, rgba.Rect, bac, bac.Bounds().Min)
-	return rgba
+	return rgba, nil
 }
